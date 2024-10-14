@@ -18,6 +18,10 @@ jobs:
       - name: Install Swagger Combine
         run: npm install -g swagger-combine
 
+      - name: Combine Swagger YAML Files
+        run: |
+          swagger-combine swagger-combine.yml -o swagger.yaml
+
       - name: Get Latest Swagger UI Release
         id: swagger-ui
         run: |
@@ -48,10 +52,6 @@ jobs:
           sed -i "s|href=\"index|href=\"dist/index|g" index.html
           # Update current release
           echo ${{ steps.swagger-ui.outputs.release_tag }} > swagger-ui.version
-
-      - name: Combine Swagger YAML Files
-        run: |
-          swagger-combine swagger-combine.yml -o swagger.yaml
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
