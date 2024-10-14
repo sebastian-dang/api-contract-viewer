@@ -67,3 +67,8 @@ jobs:
             [2]: https://github.com/peter-evans/create-pull-request
           labels: dependencies, automated pr
           branch: swagger-ui-updates
+
+      - name: Enable Pull Request Automerge
+        run: gh pr merge --merge --auto "1"
+        env:
+        GH_TOKEN: ${{ secrets.PAT }}
