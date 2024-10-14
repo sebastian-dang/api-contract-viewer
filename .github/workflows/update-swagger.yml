@@ -67,3 +67,11 @@ jobs:
             [2]: https://github.com/peter-evans/create-pull-request
           labels: dependencies, automated pr
           branch: swagger-ui-updates
+
+      - name: Auto-merge Pull Request
+        if: steps.create_pr.outputs.pull_request_number != ''
+        uses: hmarr/auto-merge-action@v1
+        with:
+          pull-request-number: ${{ steps.create_pr.outputs.pull_request_number }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: squash
