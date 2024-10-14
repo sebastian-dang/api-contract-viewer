@@ -4,11 +4,16 @@ info:
   version: 1.0.0
   description: API in Follow Up Boss
 servers:
-  - url: https://api.followupboss.com/api
+  - url: https://api.followupboss.com
 paths:
-  /events:
-    $ref: './events.yaml#/paths/events'
-components:
-  schemas:
-    Event:
-      $ref: './events.yaml#/components/schemas/Event'
+  # events.yaml
+  /v1/events:
+    $ref: './contracts/events.yaml#/paths/~1v1~1events'
+  /v1/events/{id}:
+    $ref: './contracts/events.yaml#/paths/~1v1~1events~1{id}'
+  /v1/recentActivity:
+    $ref: './contracts/events.yaml#/paths/~1v1~1recentActivity'
+  /v1/websiteActivity:
+    $ref: './contracts/events.yaml#/paths/~1v1~1websiteActivity'
+  /v1/websiteActivity/all:
+    $ref: './contracts/events.yaml#/paths/~1v1~1websiteActivity~1all'
