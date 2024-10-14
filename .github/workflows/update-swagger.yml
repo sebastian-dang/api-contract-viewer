@@ -67,11 +67,3 @@ jobs:
             [2]: https://github.com/peter-evans/create-pull-request
           labels: dependencies, automated pr
           branch: swagger-ui-updates
-
-      - name: Merge Pull Request
-        if: steps.create_pr.outputs.pull_request_number != ''
-        uses: peter-evans/merge-pull-request@v3
-        with:
-          pull-request-number: ${{ steps.create_pr.outputs.pull_request_number }}
-          merge-method: squash
-          github-token: ${{ secrets.GITHUB_TOKEN }}
