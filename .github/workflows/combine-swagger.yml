@@ -29,25 +29,25 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gh
 
-      - name: Authenticate GitHub CLI
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo $GH_TOKEN | gh auth login --with-token
-
       - name: Check for Existing Pull Request
         id: check_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pr_number=$(gh pr list --head combine-swagger-updates --state open --json number --jq '.[0].number')
           echo "pr_number=$pr_number" >> $GITHUB_ENV
 
       - name: Create Pull Request
         id: create_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: env.pr_number == ''
         run: |
           gh pr create --head combine-swagger-updates --title "Combine Swagger UI" --body "This updates the Swagger files with the latest combined specification."
 
       - name: Merge Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: env.pr_number != ''
         run: |
           gh pr merge ${{ env.pr_number }} --admin --merge --delete-branch
