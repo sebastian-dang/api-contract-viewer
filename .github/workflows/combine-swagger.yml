@@ -29,6 +29,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gh
 
+      - name: Check for Changes
+        id: check_changes
+        run: |
+          git fetch origin master
+          if git diff --quiet origin/master...combine-swagger-updates; then
+            echo "No changes detected."
+            echo "skip=true" >> $GITHUB_ENV
+          else
+            echo "Changes detected."
+            echo "skip=false" >> $GITHUB_ENV
+          fi
+          
       - name: Check for Existing Pull Request
         id: check_pr
         env:
