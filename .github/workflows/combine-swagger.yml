@@ -34,11 +34,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr create --base master --head combine-swagger-updates --title "Combine Swagger UI" --body "This updates the Swagger files with the latest combined specification."
-
-
-      - name: Merge Pull Request
-        if: steps.create_pr.outcome == 'success'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr merge ${{ steps.create_pr.outputs.pull_request_number }} --merge
+          gh pr merge --admin --merge --delete-branch
