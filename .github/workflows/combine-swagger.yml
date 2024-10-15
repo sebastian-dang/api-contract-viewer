@@ -1,4 +1,4 @@
-name: Combine Swagger UI
+name: Combine Swagger UI and Auto Merge
 on:
   workflow_dispatch:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  updateSwagger:
+  combineSwagger:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,10 +36,8 @@ jobs:
           labels: dependencies, automated pr
           branch: combine-swagger-updates
 
-      - name: Auto-Merge Pull Request
+      - name: Auto Merge Pull Request
         if: steps.create_pr.outputs.pull_request_number != ''
-        uses: peter-evans/merge-pull-request@v3
-        with:
-          pull-request-number: ${{ steps.create_pr.outputs.pull_request_number }}
-          merge-method: squash 
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+        uses: pascalgn/automerge-action@v0.16.4
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
