@@ -50,4 +50,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: env.pr_number != ''
         run: |
-          gh pr merge ${{ env.pr_number }} --admin --merge --delete-branch
+          gh pr merge ${{ env.pr_number }} --admin --squash --delete-branch
