@@ -1,4 +1,4 @@
-name: Combine Swagger UI and Auto Merge
+name: Combine Swagger and Auto Merge
 on:
   workflow_dispatch:
   push:
@@ -23,11 +23,6 @@ jobs:
       - name: Combine Swagger YAML Files
         run: |
           swagger-combine swagger-combine.yml -o swagger.yml
-
-      - name: Check for Changes
-        id: check_changes
-        run: |
-          git diff --exit-code || echo "changes=true" >> $GITHUB_ENV
 
       - name: Create Pull Request
         id: create_pr
