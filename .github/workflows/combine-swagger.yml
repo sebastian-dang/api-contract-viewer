@@ -28,9 +28,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install gh
 
-      - name: Authenticate GitHub CLI
-        run: gh auth login --with-token < ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create Pull Request
         id: create_pr
         run: |
