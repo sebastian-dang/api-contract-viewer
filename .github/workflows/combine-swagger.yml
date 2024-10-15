@@ -38,19 +38,17 @@ jobs:
         id: create_pr
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_AUTHOR_NAME: "GitHub Action"
-          GIT_AUTHOR_EMAIL: "action@github.com"
         if: env.changes == 'true'
         run: |
-          # Create a new branch
-          git checkout -b temp-combine-swagger
-          git add swagger.yml
-          git commit -m "Combine Swagger files" --no-verify
-          git push origin temp-combine-swagger
+          gh pr create --title "Combine Swagger UI" --body "This updates the Swagger files with the latest combined specification."
 
-          # Create the pull request
-          pr_number=$(gh pr create --head temp-combine-swagger --title "Combine Swagger UI" --body "This updates the Swagger files with the latest combined specification." --json number --jq '.number')
-          echo "pr_number=$pr_number" >> $GITHUB_ENV
-
-          # Merge the pull request
-          gh pr merge ${{ env.pr_number }} --admin --squash --delete-branch
+  autoMergeCombineSwagger:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.user.login == 'github-actions[bot]' }}
+    steps:
+      - name: Enable auto-merge for GitHub Actions PRs
+        run: |
+          gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
