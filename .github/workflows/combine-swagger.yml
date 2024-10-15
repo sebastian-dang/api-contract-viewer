@@ -17,21 +17,37 @@ jobs:
           node-version: '14'
 
       - name: Install Swagger Combine
-        run: npm install -g swagger-combine
+        run: |
+          npm install -g swagger-combine
 
       - name: Combine Swagger YAML Files
         run: |
           swagger-combine swagger-combine.yml -o swagger.yml
-      
+
       - name: Install GitHub CLI
         run: |
           sudo apt-get update
-          sudo apt-get install gh
+          sudo apt-get install -y gh
 
-      - name: Create Pull Request
-        id: create_pr
+      - name: Authenticate GitHub CLI
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr create --head combine-swagger-updates --title "Combine Swagger UI" --body "This updates the main swagger."
-          gh pr merge --admin --merge --delete-branch
+          echo $GH_TOKEN | gh auth login --with-token
+
+      - name: Check for Existing Pull Request
+        id: check_pr
+        run: |
+          pr_number=$(gh pr list --head combine-swagger-updates --state open --json number --jq '.[0].number')
+          echo "pr_number=$pr_number" >> $GITHUB_ENV
+
+      - name: Create Pull Request
+        id: create_pr
+        if: env.pr_number == ''
+        run: |
+          gh pr create --head combine-swagger-updates --title "Combine Swagger UI" --body "This updates the Swagger files with the latest combined specification."
+
+      - name: Merge Pull Request
+        if: env.pr_number != ''
+        run: |
+          gh pr merge ${{ env.pr_number }} --admin --merge --delete-branch
