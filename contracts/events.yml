@@ -523,7 +523,7 @@ paths:
                           example: 1
                         name:
                           type: string
-                          example: "Ant man"
+                          example: "Jane Doe"
                         assigned:
                           type: boolean
                           example: true
