@@ -38,6 +38,6 @@ jobs:
 
       - name: Auto Merge Pull Request
         if: steps.create_pr.outputs.pull_request_number != ''
-        uses: pascalgn/automerge-action@v0.16.4
+        run: gh pr merge --merge --auto "1"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
