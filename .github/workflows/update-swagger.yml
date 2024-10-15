@@ -9,19 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-
-      - name: Install Swagger Combine
-        run: npm install -g swagger-combine
-
-      - name: Combine Swagger YAML Files
-        run: |
-          swagger-combine swagger-combine.yml -o swagger.yml
-
       - name: Get Latest Swagger UI Release
         id: swagger-ui
         run: |
@@ -29,7 +16,6 @@ jobs:
           echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
           current_tag=$(<swagger-ui.version)
           echo "current_tag=$current_tag" >> $GITHUB_OUTPUT
-
       - name: Update Swagger UI
         if: steps.swagger-ui.outputs.current_tag != steps.swagger-ui.outputs.release_tag
         env:
@@ -52,7 +38,6 @@ jobs:
           sed -i "s|href=\"index|href=\"dist/index|g" index.html
           # Update current release
           echo ${{ steps.swagger-ui.outputs.release_tag }} > swagger-ui.version
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
