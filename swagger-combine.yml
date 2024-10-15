@@ -11,9 +11,3 @@ paths:
     $ref: './contracts/events.yml#/paths/~1v1~1events'
   /v1/events/{id}:
     $ref: './contracts/events.yml#/paths/~1v1~1events~1{id}'
-  /v1/recentActivity:
-    $ref: './contracts/events.yml#/paths/~1v1~1recentActivity'
-  /v1/websiteActivity:
-    $ref: './contracts/events.yml#/paths/~1v1~1websiteActivity'
-  /v1/websiteActivity/all:
-    $ref: './contracts/events.yml#/paths/~1v1~1websiteActivity~1all'
