@@ -612,7 +612,7 @@ paths:
                         description: Abbreviated state code of the property.
                       code:
                         type: string
-                        description: Zipcode of the property.
+                        description: Zip Code of the property.
                       mlsNumber:
                         type: string
                         description: MLS Number for the property.
