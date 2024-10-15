@@ -40,7 +40,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: env.changes == 'true'
         run: |
-          gh pr create --title "Combine Swagger UI" --body "This updates the Swagger files with the latest combined specification."
+          gh pr create --base master --title "Combine Swagger UI" --body "This updates the Swagger files with the latest combined specification."
 
   autoMergeCombineSwagger:
     runs-on: ubuntu-latest
