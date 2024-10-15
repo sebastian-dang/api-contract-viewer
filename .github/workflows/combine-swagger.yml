@@ -33,5 +33,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr create --head combine-swagger-updates --title "Combine Swagger UI" --body "This updates the Swagger files with the latest combined specification."
+          gh pr create --head combine-swagger-updates --title "Combine Swagger UI" --body "This updates the main swagger."
           gh pr merge --admin --merge --delete-branch
