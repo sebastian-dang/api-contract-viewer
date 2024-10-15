@@ -6,14 +6,14 @@ info:
 servers:
   - url: https://api.followupboss.com
 paths:
-  # events.yaml
+  # events.yml
   /v1/events:
-    $ref: './contracts/events.yaml#/paths/~1v1~1events'
+    $ref: './contracts/events.yml#/paths/~1v1~1events'
   /v1/events/{id}:
-    $ref: './contracts/events.yaml#/paths/~1v1~1events~1{id}'
+    $ref: './contracts/events.yml#/paths/~1v1~1events~1{id}'
   /v1/recentActivity:
-    $ref: './contracts/events.yaml#/paths/~1v1~1recentActivity'
+    $ref: './contracts/events.yml#/paths/~1v1~1recentActivity'
   /v1/websiteActivity:
-    $ref: './contracts/events.yaml#/paths/~1v1~1websiteActivity'
+    $ref: './contracts/events.yml#/paths/~1v1~1websiteActivity'
   /v1/websiteActivity/all:
-    $ref: './contracts/events.yaml#/paths/~1v1~1websiteActivity~1all'
+    $ref: './contracts/events.yml#/paths/~1v1~1websiteActivity~1all'

@@ -20,7 +20,7 @@ jobs:
 
       - name: Combine Swagger YAML Files
         run: |
-          swagger-combine swagger-combine.yml -o swagger.yaml
+          swagger-combine swagger-combine.yml -o swagger.yml
 
       - name: Get Latest Swagger UI Release
         id: swagger-ui
@@ -34,7 +34,7 @@ jobs:
         if: steps.swagger-ui.outputs.current_tag != steps.swagger-ui.outputs.release_tag
         env:
           RELEASE_TAG: ${{ steps.swagger-ui.outputs.release_tag }}
-          SWAGGER_YAML: "swagger.yaml"
+          SWAGGER_YAML: "swagger.yml"
         run: |
           # Delete the dist directory and index.html
           rm -fr dist index.html
