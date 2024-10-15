@@ -28,7 +28,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: Update swagger files
-          title: Update Swagger UI
+          title: Combine Swagger UI
           body: |
             This updates the Swagger files with the latest combined specification.
 
@@ -38,6 +38,6 @@ jobs:
 
       - name: Auto Merge Pull Request
         if: steps.create_pr.outputs.pull_request_number != ''
-        run: gh pr merge --merge --auto "1"
+        run: gh pr merge --merge --auto steps.create_pr.outputs.pull_request_number
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
